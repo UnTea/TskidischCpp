@@ -10,44 +10,49 @@ const float EPSILON = 1e-5;
 const float PI = 3.14159265358979323846;
 
 
+template <typename T>
 class Vector {
 public:
-    float x, y, z;
+    T x, y, z;
 
-    Vector& operator + (float);
-    Vector& operator +=(float);
-    Vector& operator + (const Vector&);
-    Vector& operator +=(const Vector&);
-    Vector& operator - ();
-    Vector& operator - (float);
-    Vector& operator -=(float);
-    Vector& operator - (const Vector&);
-    Vector& operator -=(const Vector&);
-    Vector& operator * (float);
-    Vector& operator *=(float);
-    Vector& operator * (const Vector&);
-    Vector& operator *=(const Vector&);
-    Vector& operator / (float);
-    Vector& operator /=(float);
-    Vector& operator / (const Vector&);
-    Vector& operator /=(const Vector&);
+    Vector<T>& operator + (T);
+    Vector<T>& operator +=(T);
+    Vector<T>& operator + (const Vector<T>&);
+    Vector<T>& operator +=(const Vector<T>&);
+    Vector<T>& operator - ();
+    Vector<T>& operator - (T);
+    Vector<T>& operator -=(T);
+    Vector<T>& operator - (const Vector<T>&);
+    Vector<T>& operator -=(const Vector<T>&);
+    Vector<T>& operator * (T);
+    Vector<T>& operator *=(T);
+    Vector<T>& operator * (const Vector<T>&);
+    Vector<T>& operator *=(const Vector<T>&);
+    Vector<T>& operator / (T);
+    Vector<T>& operator /=(T);
+    Vector<T>& operator / (const Vector<T>&);
+    Vector<T>& operator /=(const Vector<T>&);
 
-    friend std::ostream& operator <<(std::ostream&, const Vector&);
-    [[nodiscard]] float length() const;
-    Vector& norm();
-    float dot(Vector&) const;
-    static Vector& clamp(Vector&, float, float) ;
+    //FIXME WTF?
+    friend std::ostream& operator<< (std::ostream&, const Vector<T>& );
+    [[nodiscard]] T length() const;
+    Vector<T>& norm();
+    T dot(Vector<T>&) const;
+    static Vector<T>& clamp(Vector<T>&, T, T) ;
 
-    explicit Vector(float scalar)
+    explicit Vector(T scalar)
     : x(scalar), y(scalar), z(scalar)
     { }
 
-    explicit Vector(float x, float y, float z)
+    explicit Vector(T x, T y, T z)
     : x(x), y(y), z(z)
     {}
 
     ~Vector() = default;
 };
 
-float power(float, float);
-Vector& power(Vector&, float);
+template <typename T>
+T power(T, T);
+
+template <typename T>
+Vector<T>& power(Vector<T>&, T);
