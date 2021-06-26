@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <iostream>
+#include <algorithm>
 
 
 const float EPSILON = 1e-5;
@@ -35,8 +36,7 @@ public:
     [[nodiscard]] float length() const;
     Vector& norm();
     float dot(Vector&) const;
-
-    [[nodiscard]] Vector clamp(float, float) const;
+    static Vector& clamp(Vector&, float, float) ;
 
     explicit Vector(float scalar)
     : x(scalar), y(scalar), z(scalar)

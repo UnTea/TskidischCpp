@@ -94,7 +94,7 @@ Vector& Vector::operator *=(const Vector& vector) {
 }
 
 Vector& Vector::operator /(float scalar){
-    float reciprocal = float(scalar) / this->length();
+    float reciprocal = scalar / this->length();
 
     return *this * reciprocal;
 }
@@ -130,8 +130,7 @@ float Vector::length() const {
 }
 
 Vector& Vector::norm() {
-    float reciprocal = float(1.0) / this->length();
-    *this = *this * reciprocal;
+    *this = *this / this->length();
 
     return *this;
 }
@@ -140,12 +139,12 @@ float Vector::dot(Vector& vector) const {
     return x * vector.x + y * vector.y + z * vector.z;
 }
 
-Vector Vector::clamp(float min, float max) const {
-    return Vector(
-            std::min(std::max(x, min), max),
-            std::min(std::max(y, min), max),
-            std::min(std::max(z, min), max)
-            );
+Vector& Vector::clamp(Vector& vector, float min, float max) {
+    vector.x = std::clamp(vector.x, min, max);
+    vector.y = std::clamp(vector.y, min, max);
+    vector.z = std::clamp(vector.z, min, max);
+
+    return vector;
 }
 
 float power(float scalar_1, float scalar_2) {
