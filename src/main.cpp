@@ -9,7 +9,7 @@ float radians(float degree) {
 int main() {
     Vector vector1(1.1, 2.2, 3.3);
 
-    std::cout << vector1 << std::endl;
+    std::cout << vector1 / 2 << std::endl;
 
     return 0;
 }
