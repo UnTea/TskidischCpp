@@ -19,12 +19,18 @@ class Vector {
 public:
     T x, y, z;
 
+    Vector() = default;
+
     explicit Vector(T scalar)
-            : x(scalar), y(scalar), z(scalar)
-    { }
+    : x(scalar)
+    , y(scalar)
+    , z(scalar)
+    {}
 
     explicit Vector(T x, T y, T z)
-            : x(x), y(y), z(z)
+    : x(x)
+    , y(y)
+    , z(z)
     {}
 
     Vector<T>& operator + (T);
@@ -49,10 +55,15 @@ public:
     [[nodiscard]] T length() const;
     Vector<T>& norm();
     T dot(Vector<T>&) const;
-    static Vector<T>& clamp(Vector<T>&, T, T) ;
 
     ~Vector() = default;
 };
+
+template <typename T>
+T clamp(T, T, T);
+
+template <typename T>
+Vector<T>& clamp(Vector<T>&, T, T);
 
 template <typename T>
 T power(T, T);
@@ -220,7 +231,7 @@ T Vector<T>::dot(Vector<T>& vector) const {
 }
 
 template <typename T>
-Vector<T>& Vector<T>::clamp(Vector<T>& vector, T min, T max) {
+Vector<T>& clamp(Vector<T>& vector, T min, T max) {
     vector.x = std::clamp(vector.x, min, max);
     vector.y = std::clamp(vector.y, min, max);
     vector.z = std::clamp(vector.z, min, max);
