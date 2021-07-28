@@ -1,22 +1,18 @@
 #include "image.hpp"
 #include "lodepng.h"
+#include "render.hpp"
 #include "linmath.hpp"
 #include "primitives.hpp"
 #include "raytracing.hpp"
 
 
-float radians(float degree) {
-    return PI * degree / float(180.0);
-}
-
-Vector<float> red {255.0, 0.0, 0.0};
-
-
 int main() {
-    Image image(40, 40);
-    image.set_pixel(5,5, red);
-
-    image.save("../test.png");
+    std::vector<std::unique_ptr<Sphere>> vector {};
+    vector.push_back(std::make_unique<Sphere>(
+    Vector<float> (0.0f, 0.0f, 1.0f),
+    0.35f,
+    Vector<float> (1.0f, 1.0f, 1.0f)
+    ));
 
     return 0;
 }

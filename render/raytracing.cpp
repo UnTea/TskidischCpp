@@ -15,10 +15,10 @@ std::optional<Intersection> find_intersection(
     Ray& ray)
 {
     float min_t = std::numeric_limits<float>::max();
-    int index = 0;
+    size_t index = 0;
 
-    for (int i = 0; i < primitives.size(); i++) {
-        auto t = primitives[i]->ray_intersect(ray);
+    for (size_t i = 0; i < primitives.size(); i++) {
+        float t = primitives[i]->ray_intersect(ray);
 
         if (t == -1.0f) {
             continue;
@@ -35,10 +35,10 @@ std::optional<Intersection> find_intersection(
     return std::nullopt;
 }
 
-Vector<float> Ray::trace_ray(
+Vector<float> trace_ray(
     std::vector<std::unique_ptr<Primitive>>& primitives
     , Ray& ray
-    , Image& image
+    , Image& environment_map
     , std::mt19937& random)
 {
     std::optional<Intersection> intersection = find_intersection(primitives, ray);
@@ -48,15 +48,15 @@ Vector<float> Ray::trace_ray(
         float omega = std::sqrt(float(std::pow(ray.direction.x, 2)) + float(std::pow(ray.direction.z, 2)));
         float theta = std::atan2(ray.direction.y, omega);
 
-        return image.get_pixel_by_spherical_coordinates(phi, theta);
+        return environment_map.get_pixel_by_spherical_coordinates(phi, theta);
     }
 
-    ray = Ray {
-        .origin = point_at(ray, intersection->t),
-        .direction = random_unit_vector_in_hemisphere(intersection->primitive.normal(point_at(ray, intersection->t)), random),
-    };
+    ray = Ray(
+        point_at(ray, intersection->t),
+        random_unit_vector_in_hemisphere(intersection->primitive.normal(point_at(ray, intersection->t)), random)
+    );
 
-    Vector<float> color = intersection->primitive.albedo() * trace_ray(primitives, ray, image, random);
+    Vector<float> color = intersection->primitive.albedo() * trace_ray(primitives, ray, environment_map, random);
 
     return color;
 }
@@ -67,9 +67,9 @@ Vector<float> random_unit_vector_in_hemisphere(Vector<float> normal, std::mt1993
 
     for(;;) {
         random_vector = Vector<float> {
-                float(dis(random)),
-                float(dis(random)),
-                float(dis(random)),
+            float(dis(random)),
+            float(dis(random)),
+            float(dis(random)),
         };
 
         random_vector = random_vector * 2.0f + Vector(-1.0f);

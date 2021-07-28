@@ -1,7 +1,9 @@
 #pragma once
 
 
+#include <cstdio>
 #include <vector>
+#include <cstdint>
 #include <fstream>
 #include <filesystem>
 
@@ -11,23 +13,26 @@
 
 class Image {
 public:
-    Image(unsigned width, unsigned height)
+    Image(size_t width, size_t height)
     : m_width(width)
     , m_height(height)
     , m_pixels(width * height)
     {}
 
     void save(const std::filesystem::path&);
-    void set_pixel(unsigned, unsigned, Vector<float>);
+    void set_pixel(size_t, size_t, Vector<float>);
 
-    Vector<float>& get_pixel(unsigned, unsigned);
+    [[nodiscard]] size_t get_width() const;
+    [[nodiscard]] size_t get_height() const;
+
+    Vector<float>& get_pixel(size_t, size_t);
     Vector<float>& get_pixel_uv(float, float);
     Vector<float>& get_pixel_by_spherical_coordinates(float, float);
 
 private:
-    unsigned m_width;
-    unsigned m_height;
+    size_t m_width;
+    size_t m_height;
     std::vector<Vector<float>> m_pixels;
 };
 
-Vector<float> aces_film(Vector<float>);
+Vector<float> aces_film(Vector<float> color);

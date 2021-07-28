@@ -1,11 +1,11 @@
 #include "image.hpp"
 
 
-void Image::set_pixel(unsigned x, unsigned y, Vector<float> color) {
+void Image::set_pixel(size_t x, size_t y, Vector<float> color) {
     m_pixels[x + y * m_width] = color;
 }
 
-Vector<float>& Image::get_pixel(unsigned x, unsigned y) {
+Vector<float>& Image::get_pixel(size_t x, size_t y) {
     return m_pixels[x + y * m_width];
 }
 
@@ -36,21 +36,29 @@ void Image::save(const std::filesystem::path& path) {
         }
     }
 
-    unsigned error = lodepng::encode(path.string(), buffer, m_width, m_height, LCT_RGB);
+    size_t error = lodepng::encode(path.string(), buffer, m_width, m_height, LCT_RGB);
 
     if (error) {
         std::cout << "encoder error " << error << ": " << lodepng_error_text(error) << std::endl;
     }
 }
 
+size_t Image::get_width() const {
+    return m_width;
+}
+
+size_t Image::get_height() const {
+    return m_height;
+}
+
 Vector<float> aces_film(Vector<float> color) {
-    auto a = 2.51f;
-    auto b = Vector(0.03f, 0.03f, 0.03f);
-    auto c = 2.43f;
-    auto d = Vector(0.59f, 0.59f, 0.59f);
-    auto e = Vector(0.14f, 0.14f, 0.14f);
-    auto nominator = color * (color * a + b);
-    auto denominator = color * (color * c + d) + e;
+    float a = 2.51f;
+    Vector<float> b = Vector(0.03f, 0.03f, 0.03f);
+    float c = 2.43f;
+    Vector<float> d = Vector(0.59f, 0.59f, 0.59f);
+    Vector<float> e = Vector(0.14f, 0.14f, 0.14f);
+    Vector<float> nominator = color * (color * a + b);
+    Vector<float> denominator = color * (color * c + d) + e;
 
     return nominator / denominator;
 }
