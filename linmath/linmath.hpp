@@ -11,7 +11,7 @@ const float PI = 3.14159265358979323846;
 
 
 template <typename T> class Vector;
-template <typename T> std::ostream& operator<<( std::ostream&, const Vector<T>& );
+template <typename T> std::ostream& operator<< (std::ostream&, const Vector<T>&);
 
 
 template <typename T>
@@ -33,6 +33,8 @@ public:
     , z(z)
     {}
 
+    ~Vector() = default;
+
     Vector<T>& operator + (T);
     Vector<T>& operator +=(T);
     Vector<T>& operator + (const Vector<T>&);
@@ -51,12 +53,10 @@ public:
     Vector<T>& operator / (const Vector<T>&);
     Vector<T>& operator /=(const Vector<T>&);
 
-    friend std::ostream& operator<< <T>(std::ostream&, const Vector<T>& );
+    friend std::ostream& operator<< <T>(std::ostream&, const Vector<T>&);
     [[nodiscard]] T length() const;
-    Vector<T>& norm();
+    Vector<T>& normal();
     T dot(Vector<T>&) const;
-
-    ~Vector() = default;
 };
 
 template <typename T>
@@ -219,7 +219,7 @@ T Vector<T>::length() const {
 }
 
 template <typename T>
-Vector<T>& Vector<T>::norm() {
+Vector<T>& Vector<T>::normal() {
     *this = *this / this->length();
 
     return *this;

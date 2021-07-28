@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
 
-add_library(linmath INTERFACE linmath.hpp)
+add_library(linmath STATIC linmath.cpp)
 
-target_include_directories(linmath INTERFACE ${CMAKE_CURRENT_LIST_DIR})
+target_include_directories(linmath PUBLIC ${CMAKE_CURRENT_LIST_DIR})

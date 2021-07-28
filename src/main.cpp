@@ -1,6 +1,8 @@
-#include "lodepng.h"
 #include "image.hpp"
+#include "lodepng.h"
 #include "linmath.hpp"
+#include "primitives.hpp"
+#include "raytracing.hpp"
 
 
 float radians(float degree) {
@@ -8,6 +10,7 @@ float radians(float degree) {
 }
 
 Vector<float> red {255.0, 0.0, 0.0};
+
 
 int main() {
     Image image(40, 40);
