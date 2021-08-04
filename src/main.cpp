@@ -1,3 +1,4 @@
+#include "hdr.cpp"
 #include "image.hpp"
 #include "lodepng.h"
 #include "render.hpp"
