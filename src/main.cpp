@@ -1,4 +1,4 @@
-#include "hdr.cpp"
+#include "hdr.hpp"
 #include "image.hpp"
 #include "lodepng.h"
 #include "render.hpp"
@@ -14,6 +14,9 @@ int main() {
     0.35f,
     Vector<float> (1.0f, 1.0f, 1.0f)
     ));
+
+    //load_hdr("../comfy_cafe_16k.hdr");
+    load_hdr("../wooden_lounge_1k.hdr");
 
     return 0;
 }

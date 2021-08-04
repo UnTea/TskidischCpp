@@ -1,5 +1,5 @@
-#include <optional>
 #include <cmath>
+#include <optional>
 
 
 #include "raytracing.hpp"
