@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_subdirectory(deps/lodepng)
 add_subdirectory(linmath)
+add_subdirectory(reader)
 add_subdirectory(loader)
 add_subdirectory(render)
 
