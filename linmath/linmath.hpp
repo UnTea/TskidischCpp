@@ -6,8 +6,8 @@
 #include <algorithm>
 
 
-const float EPSILON = 1e-5;
-const float PI = 3.14159265358979323846;
+const float EPSILON = 1e-5f;
+const float PI = 3.14159265358979323846f;
 
 
 template <typename T> class Vector;
@@ -17,7 +17,9 @@ template <typename T> std::ostream& operator<< (std::ostream&, const Vector<T>&)
 template <typename T>
 class Vector {
 public:
-    T x, y, z;
+    T x
+    , y
+    , z;
 
     Vector() = default;
 
@@ -53,10 +55,11 @@ public:
     Vector<T>& operator / (const Vector<T>&);
     Vector<T>& operator /=(const Vector<T>&);
 
-    friend std::ostream& operator<< <T>(std::ostream&, const Vector<T>&);
     [[nodiscard]] T length() const;
     Vector<T>& normal();
     T dot(Vector<T>&) const;
+
+    friend std::ostream& operator<< <T>(std::ostream&, const Vector<T>&);
 };
 
 template <typename T>
@@ -207,13 +210,6 @@ Vector<T>& Vector<T>::operator /=(const Vector<T>& vector) {
 }
 
 template <typename T>
-std::ostream& operator <<(std::ostream& ostream, const Vector<T>& vector) {
-    ostream << vector.x << '/' << vector.y << '/' << vector.z;
-
-    return ostream;
-}
-
-template <typename T>
 T Vector<T>::length() const {
     return std::sqrt(x * x + y * y + z * z);
 }
@@ -228,6 +224,13 @@ Vector<T>& Vector<T>::normal() {
 template <typename T>
 T Vector<T>::dot(Vector<T>& vector) const {
     return x * vector.x + y * vector.y + z * vector.z;
+}
+
+template <typename T>
+std::ostream& operator <<(std::ostream& ostream, const Vector<T>& vector) {
+    ostream << vector.x << '/' << vector.y << '/' << vector.z;
+
+    return ostream;
 }
 
 template <typename T>

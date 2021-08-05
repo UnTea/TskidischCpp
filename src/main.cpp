@@ -8,15 +8,16 @@
 
 
 int main() {
-    std::vector<std::unique_ptr<Sphere>> vector {};
-    vector.push_back(std::make_unique<Sphere>(
+    std::vector<std::unique_ptr<Primitive>> primitives {};
+    primitives.push_back(std::make_unique<Sphere>(
     Vector<float> (0.0f, 0.0f, 1.0f),
     0.35f,
     Vector<float> (1.0f, 1.0f, 1.0f)
     ));
 
-    //load_hdr("../comfy_cafe_16k.hdr");
-    load_hdr("../wooden_lounge_1k.hdr");
+    //Image environment_map = load_hdr("../comfy_cafe_16k.hdr");
+    Image environment_map = load_hdr("../wooden_lounge_1k.hdr");
+    Image output = render(primitives, environment_map);
 
     return 0;
 }

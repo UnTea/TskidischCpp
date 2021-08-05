@@ -1,6 +1,9 @@
 #include "image.hpp"
 
 
+#include <cstdint>
+
+
 void Image::set_pixel(size_t x, size_t y, Vector<float> color) {
     m_pixels[x + y * m_width] = color;
 }

@@ -1,10 +1,7 @@
 #pragma once
 
 
-#include <cstdio>
 #include <vector>
-#include <cstdint>
-#include <fstream>
 #include <filesystem>
 
 #include "lodepng.h"
@@ -30,8 +27,8 @@ public:
     Vector<float>& get_pixel_by_spherical_coordinates(float, float);
 
 private:
-    size_t m_width;
-    size_t m_height;
+    size_t m_width
+         , m_height;
     std::vector<Vector<float>> m_pixels;
 };
 
