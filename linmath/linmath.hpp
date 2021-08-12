@@ -181,7 +181,7 @@ Vector<T>& Vector<T>::operator *=(const Vector<T>& vector) {
 
 template <typename T>
 Vector<T>& Vector<T>::operator /(T scalar){
-    float reciprocal = scalar / this->length();
+    float reciprocal = 1 / scalar;
 
     return *this * reciprocal;
 }

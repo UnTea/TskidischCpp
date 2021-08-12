@@ -13,7 +13,7 @@
 
 const size_t WIDTH = 1024;
 const size_t HEIGHT = 780;
-const size_t SAMPLE_COUNT = 1;
+const size_t SAMPLE_COUNT = 64;
 const size_t FIELD_OF_VIEW = 120;
 
 Image render(std::vector<std::unique_ptr<Primitive>>&, Image&);

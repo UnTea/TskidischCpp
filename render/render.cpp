@@ -49,7 +49,7 @@ void tile(
                 float film_v = v * std::tan(radians(FIELD_OF_VIEW) / 2);
 
                 Vector<float> direction = Vector(film_u, film_v, 1.0f).normal();
-                Ray ray = Ray(direction, Vector<float> {});
+                Ray ray = Ray(Vector<float> {}, direction);
 
                 Vector<float> color = trace_ray(primitives, ray, environment_map, random);
                 sum += color;

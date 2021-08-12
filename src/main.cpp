@@ -20,10 +20,10 @@ int main() {
     auto start = std::chrono::high_resolution_clock::now();
 
     try {
-        //Image environment_map = load_hdr("../comfy_cafe_16k.hdr");
-        Image environment_map = load_hdr("../wooden_lounge_1k.hdr");
+        Image environment_map = load_hdr("../comfy_cafe_16k.hdr");
+        //Image environment_map = load_hdr("../wooden_lounge_1k.hdr");
         Image output = render(primitives, environment_map);
-        //environment_map.save("../test.png");
+        //environment_map.save("../test_normal.png");
         output.save("../test.png");
     } catch (std::bad_alloc &error) {
         std::cout << error.what() << std::endl;

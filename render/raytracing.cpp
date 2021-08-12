@@ -45,15 +45,18 @@ Vector<float> trace_ray(
 
     if (!intersection) {
         float phi = std::atan2(ray.direction.z, ray.direction.x);
-        float omega = std::sqrt(float(std::pow(ray.direction.x, 2)) + float(std::pow(ray.direction.z, 2)));
+        float omega = std::sqrt(ray.direction.x * ray.direction.x + ray.direction.z * ray.direction.z);
         float theta = std::atan2(ray.direction.y, omega);
 
         return environment_map.get_pixel_by_spherical_coordinates(phi, theta);
     }
 
+    auto origin = point_at(ray, intersection->t),
+         direction = random_unit_vector_in_hemisphere(intersection->primitive.normal(point_at(ray, intersection->t)), random);
+
     ray = Ray(
-        point_at(ray, intersection->t),
-        random_unit_vector_in_hemisphere(intersection->primitive.normal(point_at(ray, intersection->t)), random)
+        origin,
+        direction
     );
 
     Vector<float> color = intersection->primitive.albedo() * trace_ray(primitives, ray, environment_map, random);

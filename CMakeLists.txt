@@ -3,6 +3,8 @@ project(TskidischCpp)
 
 set(CMAKE_CXX_STANDARD 20)
 
+#add_compile_options(/EHa)
+
 add_subdirectory(deps/lodepng)
 add_subdirectory(linmath)
 add_subdirectory(reader)
