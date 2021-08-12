@@ -2,9 +2,11 @@
 #include "reader.hpp"
 
 
+#include <array>
 #include <string>
 #include <fstream>
 #include <stdexcept>
+#include <functional>
 
 
 struct Header {
@@ -97,9 +99,10 @@ void unpack_rle(size_t y, Reader& reader, Image& image) {
         throw std::runtime_error("Bad scanline width!");
     }
 
+    std::array<std::reference_wrapper<std::vector<std::uint8_t>>, 4> insert_color_into_rgbe {red, green, blue, exp};
+
     for (size_t i = 0; i < 4; i++) {
         size_t x = 0;
-        std::vector<std::vector<std::uint8_t>> color {red, green, blue, exp};
 
         while (x < image.get_width()) {
             std::uint8_t count = reader.read_uint8_t();
@@ -109,12 +112,12 @@ void unpack_rle(size_t y, Reader& reader, Image& image) {
                 std::uint8_t value = reader.read_uint8_t();
 
                 for (size_t j = 0; j < count; j++) {
-                    color[i][x] = value;
+                    insert_color_into_rgbe[i].get()[x] = value;
                     x++;
                 }
             } else {
                 for (size_t j = 0; j < count; j++) {
-                    color[i][x] = reader.read_uint8_t();
+                    insert_color_into_rgbe[i].get()[x] = reader.read_uint8_t();
                     x++;
                 }
             }
@@ -129,7 +132,7 @@ void unpack_rle(size_t y, Reader& reader, Image& image) {
 
 Image load_hdr(const std::filesystem::path& path) {
     std::vector<uint8_t> buffer;
-    std::ifstream file(path);
+    std::ifstream file(path, std::ios::binary); //\r\n - translate to \n if not std::ios::binary
 
     if (file.fail()) {
         throw std::runtime_error("Couldn't open the file!");

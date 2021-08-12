@@ -13,15 +13,15 @@ Vector<float>& Image::get_pixel(size_t x, size_t y) {
 }
 
 Vector<float>& Image::get_pixel_uv(float u, float v) {
-    size_t x = int(float(m_width) * (1.0f - u));
-    size_t y = int(float(m_height) * (1.0f - v));
+    auto x = size_t(float(m_width) * (1.0f - u));
+    auto y = size_t(float(m_height) * (1.0f - v));
 
     return get_pixel(x, y);
 }
 
 Vector<float>& Image::get_pixel_by_spherical_coordinates(float phi, float theta) {
-    float u = (phi + PI) / (2 * PI);
-    float v = (theta + PI / 2) / PI;
+    float u = (phi + PI) / (2.0f * PI);
+    float v = (theta + PI / 2.0f) / PI;
 
     return get_pixel_uv(u, v);
 }

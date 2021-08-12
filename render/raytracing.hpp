@@ -19,9 +19,9 @@ struct Intersection {
 
 class Ray {
 public:
-    Ray(Vector<float> _origin, Vector<float> _direction)
-    : origin(_origin)
-    , direction(_direction)
+    Ray(Vector<float> origin, Vector<float> direction)
+    : origin(origin)
+    , direction(direction)
     { }
 
     Vector<float> origin;

@@ -9,8 +9,8 @@ float radians(float degree) {
 Image render(std::vector<std::unique_ptr<Primitive>>& primitives, Image& environment_map) {
     Image image(WIDTH, HEIGHT);
 
-    for (uint16_t y = 0; y < uint16_t(image.get_height() / 100 + 1); y++) {
-        for (uint16_t x = 0; x < uint16_t(image.get_width() / 100 + 1); x++) {
+    for (size_t y = 0; y < image.get_height() / 100 + 1; y++) {
+        for (size_t x = 0; x < image.get_width() / 100 + 1; x++) {
             tile(primitives, environment_map, image, x, y);
         }
     }
@@ -55,7 +55,7 @@ void tile(
                 sum += color;
             }
 
-            image.set_pixel(x, y, sum / float(SAMPLE_COUNT));
+            image.set_pixel(x, y, sum / SAMPLE_COUNT);
         }
     }
 }

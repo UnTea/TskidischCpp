@@ -7,7 +7,7 @@
 
 
 const float EPSILON = 1e-5f;
-const float PI = 3.14159265358979323846f;
+const float PI = 3.14159265f;
 
 
 template <typename T> class Vector;
